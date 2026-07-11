@@ -4,13 +4,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Kotodama Apps</title>
+
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+
   <header class="site-header">
     <div class="logo" id="siteLogo">Kotodama Apps</div>
+
     <nav>
       <a href="#apps">Apps</a>
       <a href="#about">About</a>
@@ -20,19 +24,28 @@
 
   <section class="hero">
     <p class="badge" id="siteBadge"></p>
+
     <h1 id="siteSlogan"></h1>
+
     <p class="lead" id="siteDescription"></p>
 
     <div class="hero-buttons">
-      <a href="#apps" class="btn primary">アプリを見る</a>
-      <button class="btn secondary" id="randomBtn">ランダムで探す</button>
+      <a href="#apps" class="btn primary">
+        アプリを見る
+      </a>
+
+      <button type="button" class="btn secondary" id="randomBtn">
+        ランダムで探す
+      </button>
     </div>
   </section>
 
   <main>
+
     <section class="section" id="apps">
       <div class="section-head">
         <h2>Apps</h2>
+
         <input id="searchInput" type="text" placeholder="アプリを検索..." />
       </div>
 
@@ -43,6 +56,7 @@
 
     <section class="section about" id="about">
       <h2>About</h2>
+
       <p>
         Kotodama Apps は、思いついたアイデアを無料で使えるWebアプリとして公開する場所です。
         便利なもの、少し遊べるもの、日常で使える小さなツールを育てていきます。
@@ -51,20 +65,78 @@
 
     <section class="section support" id="support">
       <h2>Support</h2>
+
       <p>
-        すべてのアプリは無料で使えます。気に入った方だけ、お賽銭感覚で応援してもらえると嬉しいです。
+        すべてのアプリは無料で使えます。
+        気に入った方だけ、お賽銭感覚で応援してもらえると嬉しいです。
       </p>
-      <a class="btn support-btn" id="supportLink" href="#" target="_blank">☕ 応援する</a>
+
+      <button type="button" class="support-button" id="openSupportModal">
+        ☕ 開発を応援する
+      </button>
     </section>
+
   </main>
 
   <footer>
     <p id="footerText"></p>
   </footer>
 
+  <div class="support-modal" id="supportModal" aria-hidden="true">
+    <div class="support-modal__overlay" id="supportModalOverlay"></div>
+
+    <div class="support-modal__content" role="dialog" aria-modal="true" aria-labelledby="supportModalTitle">
+      <button type="button" class="support-modal__close" id="closeSupportModal" aria-label="応援画面を閉じる">
+        ×
+      </button>
+
+      <div class="support-modal__icon">
+        ⛩️
+      </div>
+
+      <p class="support-modal__label">
+        Support Kotodama Apps
+      </p>
+
+      <h2 id="supportModalTitle">
+        開発を応援していただけますか？
+      </h2>
+
+      <p class="support-modal__message">
+        Kotodama Appsは、誰でも無料で使える小さなWebアプリを公開しています。
+      </p>
+
+      <p class="support-modal__message">
+        いただいた応援は、新しいアプリの制作や機能改善に活用します。
+      </p>
+
+      <p class="support-modal__note">
+        支援金額はStripeの画面で自由に選択できます。
+      </p>
+
+      <div class="support-modal__actions">
+
+        <a href="https://buy.stripe.com/7sYaEX3Sgac13s07sGcAo00" class="support-modal__stripe-button" target="_blank"
+          rel="noopener noreferrer" id="stripeSupportLink">
+          🎁 Stripeで応援する
+        </a>
+
+        <button type="button" class="support-modal__cancel" id="cancelSupportModal">
+          今は閉じる
+        </button>
+
+      </div>
+
+      <p class="support-modal__security">
+        🔒 決済はStripeの安全なページで行われます
+      </p>
+    </div>
+  </div>
+
   <script src="config.js"></script>
   <script src="apps.js"></script>
   <script src="script.js"></script>
+
 </body>
 
 </html>

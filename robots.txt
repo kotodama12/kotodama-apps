@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://kotodama12.github.io/kotodama-apps/sitemap.xml

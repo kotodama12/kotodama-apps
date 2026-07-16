@@ -315,7 +315,29 @@ function getEntryWithSolution() {
 }
 
 function createDailyDiscoveries() {
-  const discoveries = [];
+  const isSameLocalDate = (
+    dateString,
+    targetDate = new Date()
+  ) => {
+    if (!dateString) {
+      return false;
+    }
+
+    const date = new Date(dateString);
+
+    if (Number.isNaN(date.getTime())) {
+      return false;
+    }
+
+    return (
+      date.getFullYear() ===
+      targetDate.getFullYear() &&
+      date.getMonth() ===
+      targetDate.getMonth() &&
+      date.getDate() ===
+      targetDate.getDate()
+    );
+  };
 
   const watchingEntries = entries.filter((entry) => {
     return entry.status === "watching";
@@ -325,117 +347,187 @@ function createDailyDiscoveries() {
     return entry.status === "resolved";
   });
 
-  const totalOccurrences = getTotalOccurrenceCount();
-  const totalLostMinutes = getTotalLostMinutes();
-  const mostFrequentEntry = getMostFrequentEntry();
-  const latestResolvedEntry =
-    getMostRecentlyResolvedEntry();
-  const entryWithSolution = getEntryWithSolution();
+  /* =========================
+     優先度1
+     3回以上繰り返している
+  ========================= */
+
+  const repeatedEntry = [...watchingEntries]
+    .filter((entry) => {
+      return entry.occurrenceCount >= 3;
+    })
+    .sort((a, b) => {
+      if (
+        b.occurrenceCount !==
+        a.occurrenceCount
+      ) {
+        return (
+          b.occurrenceCount -
+          a.occurrenceCount
+        );
+      }
+
+      return (
+        new Date(b.updatedAt) -
+        new Date(a.updatedAt)
+      );
+    })[0];
+
+  if (repeatedEntry) {
+    return {
+      type: "observation",
+      text:
+        `「${repeatedEntry.title}」が${repeatedEntry.occurrenceCount}回起きています。`,
+      subtext:
+        "繰り返しは、次に整える場所を教えてくれる大切なサインです。"
+    };
+  }
+
+  /* =========================
+     優先度2
+     今日整ったものがある
+  ========================= */
+
+  const resolvedToday = [...resolvedEntries]
+    .filter((entry) => {
+      return isSameLocalDate(
+        entry.resolvedAt ||
+        entry.updatedAt
+      );
+    })
+    .sort((a, b) => {
+      return (
+        new Date(
+          b.resolvedAt ||
+          b.updatedAt
+        ) -
+        new Date(
+          a.resolvedAt ||
+          a.updatedAt
+        )
+      );
+    })[0];
+
+  if (resolvedToday) {
+    return {
+      type: "growth",
+      text:
+        `今日、「${resolvedToday.title}」が整いました。`,
+      subtext:
+        "小さな改善も、未来の自分を楽にする立派なアップデートです。"
+    };
+  }
+
+  /* =========================
+     優先度3
+     今日新しく記録した
+  ========================= */
+
+  const createdToday = [...entries]
+    .filter((entry) => {
+      return isSameLocalDate(
+        entry.createdAt
+      );
+    })
+    .sort((a, b) => {
+      return (
+        new Date(b.createdAt) -
+        new Date(a.createdAt)
+      );
+    })[0];
+
+  if (createdToday) {
+    return {
+      type: "observation",
+      text:
+        `今日、「${createdToday.title}」という小さな不便を発見しました。`,
+      subtext:
+        "気づけたことが、暮らしを整える最初のアップデートです。"
+    };
+  }
+
+  /* =========================
+     優先度4
+     整える方法がある
+  ========================= */
+
+  const solutionEntry = [...entries]
+    .filter((entry) => {
+      return Boolean(entry.solution);
+    })
+    .sort((a, b) => {
+      return (
+        new Date(b.updatedAt) -
+        new Date(a.updatedAt)
+      );
+    })[0];
+
+  if (solutionEntry) {
+    return {
+      type: "growth",
+      text:
+        `「${solutionEntry.title}」には、整える方法があります。`,
+      subtext:
+        `試している方法：${solutionEntry.solution}`
+    };
+  }
+
+  /* =========================
+     優先度5
+     整った記録が3件以上
+  ========================= */
+
+  if (resolvedEntries.length >= 3) {
+    return {
+      type: "growth",
+      text:
+        `これまでに${resolvedEntries.length}つ、暮らしが整いました。`,
+      subtext:
+        "積み重ねた小さな改善が、あなたのLife OSを少しずつ更新しています。"
+    };
+  }
+
+  /* =========================
+     優先度6
+     観察中が5件以上
+  ========================= */
+
+  if (watchingEntries.length >= 5) {
+    return {
+      type: "observation",
+      text:
+        `現在、${watchingEntries.length}件の小さな不便を観察しています。`,
+      subtext:
+        "全部を一度に直さなくても大丈夫です。まずは一番繰り返すものから見てみましょう。"
+    };
+  }
+
+  /* =========================
+     記録がまだない
+  ========================= */
 
   if (entries.length === 0) {
-    discoveries.push({
+    return {
       type: "rest",
       text:
         "まだ記録はありません。今日は、少しだけ面倒だったことを探してみましょう。",
       subtext:
         "大きな悩みでなくても大丈夫です。小さな気づきが暮らしを整える入口になります。"
-    });
-
-    discoveries.push({
-      type: "observation",
-      text:
-        "気づけたことが、最初のアップデートです。",
-      subtext:
-        "完璧に直す必要はありません。まずは観察するだけで十分です。"
-    });
-
-    return discoveries;
+    };
   }
 
-  discoveries.push({
-    type: "observation",
+  /* =========================
+     優先度7
+     通常のことだま
+  ========================= */
+
+  return {
+    type: "rest",
     text:
-      `これまでに${totalOccurrences}回、暮らしの小さな不便に気づいています。`,
+      "今日も、暮らしの小さな違和感をひとつだけ観察してみましょう。",
     subtext:
-      "気づきが増えるほど、自分に合った整え方を見つけやすくなります。"
-  });
-
-  if (watchingEntries.length > 0) {
-    discoveries.push({
-      type: "observation",
-      text:
-        `現在、${watchingEntries.length}件の小さな不便を観察しています。`,
-      subtext:
-        "今すぐ全部を直さなくても大丈夫です。見つけておくだけでも前進です。"
-    });
-  }
-
-  if (resolvedEntries.length > 0) {
-    discoveries.push({
-      type: "growth",
-      text:
-        `これまでに${resolvedEntries.length}つ、暮らしが整いました。`,
-      subtext:
-        "大きさに関係なく、楽になった変化はすべて大切なアップデートです。"
-    });
-  }
-
-  if (
-    mostFrequentEntry &&
-    mostFrequentEntry.occurrenceCount >= 2
-  ) {
-    discoveries.push({
-      type: "observation",
-      text:
-        `「${mostFrequentEntry.title}」は、これまでに${mostFrequentEntry.occurrenceCount}回気づいています。`,
-      subtext:
-        "繰り返しが見えてきたことも、大切な発見です。"
-    });
-  }
-
-  if (latestResolvedEntry) {
-    discoveries.push({
-      type: "growth",
-      text:
-        `最近「${latestResolvedEntry.title}」が整いました。`,
-      subtext:
-        "小さな改善も、未来の自分を楽にする立派なアップデートです。"
-    });
-  }
-
-  if (entryWithSolution) {
-    discoveries.push({
-      type: "growth",
-      text:
-        `「${entryWithSolution.title}」には、整えるためのアイデアがあります。`,
-      subtext:
-        `試している方法：${entryWithSolution.solution}`
-    });
-  }
-
-  if (totalLostMinutes > 0) {
-    discoveries.push({
-      type: "observation",
-      text:
-        `記録された小さな不便には、合計で約${totalLostMinutes}分の時間が使われています。`,
-      subtext:
-        "時間を責めるためではなく、どこを整えると楽になるかを見つけるための数字です。"
-    });
-  }
-
-  if (
-    resolvedEntries.length >= 3
-  ) {
-    discoveries.push({
-      type: "growth",
-      text:
-        "暮らしを整える力が、少しずつ積み重なっています。",
-      subtext:
-        `${resolvedEntries.length}件のアップデートが、あなたの記録に残っています。`
-    });
-  }
-
-  return discoveries;
+      "直せなくても大丈夫です。気づいて記録するだけで、次のアップデートにつながります。"
+  };
 }
 
 function renderDailyDiscovery() {
@@ -447,14 +539,8 @@ function renderDailyDiscovery() {
     return;
   }
 
-  const discoveries = createDailyDiscoveries();
-
-  const discoveryIndex =
-    getDailyDiscoveryIndex(discoveries.length);
-
   const discovery =
-    discoveries[discoveryIndex] ||
-    discoveries[0];
+    createDailyDiscoveries();
 
   dailyDiscoveryCard.classList.remove(
     "is-growth",

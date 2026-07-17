@@ -1185,6 +1185,220 @@ function renderResolvedEntries(resolvedEntries) {
 }
 
 /* =========================
+   Life Bug Ranking
+========================= */
+
+function getRankingEntries() {
+  return [...entries]
+    .sort((a, b) => {
+      const aLostMinutes =
+        Number(a.lostMinutes) *
+        Number(a.occurrenceCount);
+
+      const bLostMinutes =
+        Number(b.lostMinutes) *
+        Number(b.occurrenceCount);
+
+      if (bLostMinutes !== aLostMinutes) {
+        return bLostMinutes - aLostMinutes;
+      }
+
+      if (
+        b.occurrenceCount !==
+        a.occurrenceCount
+      ) {
+        return (
+          b.occurrenceCount -
+          a.occurrenceCount
+        );
+      }
+
+      return (
+        new Date(b.updatedAt) -
+        new Date(a.updatedAt)
+      );
+    })
+    .slice(0, 3);
+}
+
+function getRankingMedal(index) {
+  const medals = [
+    "🥇",
+    "🥈",
+    "🥉"
+  ];
+
+  return medals[index] || "🏅";
+}
+
+function createRankingStat(
+  labelText,
+  valueText
+) {
+  const stat =
+    document.createElement("div");
+
+  stat.className =
+    "ranking-card__stat";
+
+  const label =
+    document.createElement("p");
+
+  label.className =
+    "ranking-card__label";
+
+  label.textContent = labelText;
+
+  const value =
+    document.createElement("p");
+
+  value.className =
+    "ranking-card__value";
+
+  value.textContent = valueText;
+
+  stat.append(label, value);
+
+  return stat;
+}
+
+function createRankingCard(
+  entry,
+  index
+) {
+  const article =
+    document.createElement("article");
+
+  article.className = "ranking-card";
+
+  const top =
+    document.createElement("div");
+
+  top.className =
+    "ranking-card__top";
+
+  const title =
+    document.createElement("h3");
+
+  title.className =
+    "ranking-card__title";
+
+  title.textContent = entry.title;
+
+  const rank =
+    document.createElement("span");
+
+  rank.className =
+    "ranking-card__rank";
+
+  rank.textContent =
+    getRankingMedal(index);
+
+  top.append(rank, title);
+
+  const stats =
+    document.createElement("div");
+
+  stats.className =
+    "ranking-card__stats";
+
+  const totalLostMinutes =
+    Number(entry.lostMinutes) *
+    Number(entry.occurrenceCount);
+
+  stats.append(
+    createRankingStat(
+      "発生回数",
+      `${entry.occurrenceCount}回`
+    ),
+    createRankingStat(
+      "合計時間ロス",
+      totalLostMinutes > 0
+        ? `約${totalLostMinutes}分`
+        : "ほぼなし"
+    )
+  );
+
+  const message =
+    document.createElement("p");
+
+  message.className =
+    "ranking-card__message";
+
+  if (index === 0) {
+    message.textContent =
+      "現在、最も優先して整える効果が大きいLife Bugです。";
+  } else if (entry.status === "resolved") {
+    message.textContent =
+      "すでに整った記録です。改善によって得られた効果を振り返れます。";
+  } else if (entry.solution) {
+    message.textContent =
+      "整える方法が記録されています。次は実際に試してみましょう。";
+  } else {
+    message.textContent =
+      "繰り返しや時間ロスを観察しながら、整える方法を考えてみましょう。";
+  }
+
+  article.append(
+    top,
+    stats,
+    message
+  );
+
+  return article;
+}
+
+function renderRanking() {
+  const rankingSection =
+    document.getElementById(
+      "rankingSection"
+    );
+
+  const rankingList =
+    document.getElementById(
+      "rankingList"
+    );
+
+  if (
+    !rankingSection ||
+    !rankingList
+  ) {
+    return;
+  }
+
+  rankingList.innerHTML = "";
+
+  const rankingEntries =
+    getRankingEntries();
+
+  if (rankingEntries.length === 0) {
+    const empty =
+      document.createElement("div");
+
+    empty.className =
+      "resolved-empty";
+
+    empty.textContent =
+      "Life Bugを記録すると、改善効果の大きいものがここに表示されます。";
+
+    rankingList.appendChild(empty);
+
+    return;
+  }
+
+  rankingEntries.forEach(
+    (entry, index) => {
+      rankingList.appendChild(
+        createRankingCard(
+          entry,
+          index
+        )
+      );
+    }
+  );
+}
+
+/* =========================
    全体表示
 ========================= */
 
@@ -1234,6 +1448,7 @@ function renderEntries() {
   renderResolvedEntries(resolvedEntries);
   renderDailyDiscovery();
   renderLifeUpdate();
+  renderRanking();
 }
 
 /* =========================

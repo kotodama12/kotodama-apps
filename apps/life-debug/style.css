@@ -702,3 +702,80 @@ a {
 .message-card.is-rest .message-card__label {
   color: #526b88;
 }
+
+/* =========================
+   Life Bug Ranking
+========================= */
+
+.ranking-section {
+  margin-bottom: 32px;
+}
+
+.ranking-section__description {
+  margin: 8px 0 20px;
+  color: #7b7b7b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.ranking-list {
+  display: grid;
+  gap: 16px;
+}
+
+.ranking-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 18px;
+  border: 1px solid #ececec;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .05);
+}
+
+.ranking-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.ranking-card__rank {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.ranking-card__title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.ranking-card__stats {
+  display: flex;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.ranking-card__stat {
+  flex: 1;
+  background: #f8f8f8;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+}
+
+.ranking-card__label {
+  font-size: .8rem;
+  color: #888;
+}
+
+.ranking-card__value {
+  margin-top: 4px;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.ranking-card__message {
+  margin-top: 16px;
+  color: #666;
+  line-height: 1.6;
+}

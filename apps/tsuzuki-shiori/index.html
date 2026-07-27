@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>つづき栞 | Kotodama Apps</title>
+  <meta name="description" content="作業を中断するときに「次はここから」を残し、迷わず再開するためのアプリです。" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- =========================
+       ヘッダー
+  ========================== -->
+  <header class="app-header">
+    <a href="../../" class="back-link">← Kotodama Apps</a>
+
+    <div class="title-area">
+      <span class="app-icon">🔖</span>
+
+      <div>
+        <h1>つづき栞</h1>
+        <p>次の自分が、迷わず始められる栞。</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================
+       メイン
+  ========================== -->
+  <main class="app-container">
+
+    <!-- 再開するときに最初に見る場所 -->
+    <section class="resume-section">
+      <p class="section-label">まずこれだけ</p>
+
+      <div id="resumeCard" class="resume-card">
+        <p id="emptyMessage" class="empty-message">
+          まだ栞はありません。<br />
+          作業を終える前に、次の一手を残してみましょう。
+        </p>
+
+        <div id="resumeContent" class="resume-content" hidden>
+          <h2 id="resumeNextAction"></h2>
+
+          <dl class="resume-details">
+            <div>
+              <dt>今やっていたこと</dt>
+              <dd id="resumeCurrentTask"></dd>
+            </div>
+
+            <div id="resumeBlockerRow">
+              <dt>詰まっている部分</dt>
+              <dd id="resumeBlocker"></dd>
+            </div>
+
+            <div id="resumeUrlRow">
+              <dt>関係するURL</dt>
+              <dd>
+                <a id="resumeUrl" href="#" target="_blank" rel="noopener noreferrer">
+                  URLを開く
+                </a>
+              </dd>
+            </div>
+
+            <div id="resumeDateRow">
+              <dt>再開予定日</dt>
+              <dd id="resumeDate"></dd>
+            </div>
+          </dl>
+
+          <button id="completeButton" class="complete-button" type="button">
+            ここから再開できた
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 栞を残す入力欄 -->
+    <section class="bookmark-section">
+      <h2>次はここから</h2>
+      <p class="section-description">
+        作業をやめる前に、次の自分へ短く残しておきましょう。
+      </p>
+
+      <form id="bookmarkForm">
+
+        <div class="form-group">
+          <label for="currentTask">今やっていたこと</label>
+          <input id="currentTask" name="currentTask" type="text" placeholder="例：変換日記をGitHubに公開した" required />
+        </div>
+
+        <div class="form-group">
+          <label for="nextAction">
+            次にする一手
+            <span class="required-label">いちばん大事</span>
+          </label>
+          <input id="nextAction" name="nextAction" type="text" placeholder="例：スマホで表示を確認する" required />
+        </div>
+
+        <div class="form-group">
+          <label for="blocker">詰まっている部分</label>
+          <textarea id="blocker" name="blocker" rows="3" placeholder="例：動画がスマホ画面からはみ出す"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="relatedUrl">関係するURL</label>
+          <input id="relatedUrl" name="relatedUrl" type="url" placeholder="https://example.com" />
+        </div>
+
+        <div class="form-group">
+          <label for="resumeDate">再開予定日</label>
+          <input id="resumeDate" name="resumeDate" type="date" />
+        </div>
+
+        <button class="save-button" type="submit">
+          栞をはさむ
+        </button>
+
+      </form>
+
+      <p id="saveMessage" class="save-message" aria-live="polite"></p>
+    </section>
+
+  </main>
+
+  <!-- =========================
+       フッター
+  ========================== -->
+  <footer class="app-footer">
+    <p>思いつきを、カタチに。 — Kotodama Apps</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

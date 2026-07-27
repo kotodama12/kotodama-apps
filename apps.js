@@ -1,5 +1,13 @@
 const APPS = [
   {
+    name: "つづき栞",
+    description: "作業をやめる前に「次はここから」を残し、迷わず再開するためのアプリ。",
+    category: "生活",
+    icon: "🔖",
+    url: "apps/tsuzuki-shiori/",
+    date: "2026/07/27"
+  },
+  {
     name: "変換日記",
     description: "好きな音楽を聴きながら、日本語の日記を英語に変換して保存できる日記アプリ。",
     category: "生活",

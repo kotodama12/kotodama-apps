@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>最後にいつ？ | Kotodama Apps</title>
+
+  <meta name="description" content="たまにする作業について、前回から何日経ったかを確認できる記録アプリです。" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- =========================
+       ヘッダー
+  ========================== -->
+  <header class="app-header">
+
+    <a href="../../" class="back-link">
+      ← Kotodama Apps
+    </a>
+
+    <div class="title-area">
+
+      <span class="app-icon">🕰️</span>
+
+      <div>
+        <h1>最後にいつ？</h1>
+
+        <p>
+          前回からの日数に、そっと気づく。
+        </p>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       メイン
+  ========================== -->
+  <main class="app-container">
+
+    <!-- 新しい記録 -->
+    <section class="record-section">
+
+      <h2>最後にした日を記録</h2>
+
+      <p class="section-description">
+        たまにすることを登録しておくと、前回から何日経ったか分かります。
+      </p>
+
+      <form id="recordForm">
+
+        <div class="form-group">
+
+          <label for="taskName">
+            何をした？
+          </label>
+
+          <input id="taskName" name="taskName" type="text" placeholder="例：シーツを洗った" required />
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="lastDate">
+            最後にした日
+          </label>
+
+          <input id="lastDate" name="lastDate" type="date" required />
+
+        </div>
+
+        <button class="save-button" type="submit">
+          記録する
+        </button>
+
+      </form>
+
+      <p id="saveMessage" class="save-message" aria-live="polite"></p>
+
+    </section>
+
+
+    <!-- 記録一覧 -->
+    <section class="list-section">
+
+      <div class="list-heading">
+
+        <div>
+          <p class="section-label">
+            YOUR RECORDS
+          </p>
+
+          <h2>前回からの日数</h2>
+        </div>
+
+        <p id="recordCount" class="record-count">
+          0件
+        </p>
+
+      </div>
+
+
+      <!-- 記録がないとき -->
+      <div id="emptyMessage" class="empty-message">
+
+        <span class="empty-icon">🌿</span>
+
+        <p>
+          まだ記録はありません。<br />
+          気になっていることを、ひとつ登録してみましょう。
+        </p>
+
+      </div>
+
+
+      <!-- JavaScriptで記録を表示する場所 -->
+      <div id="recordList" class="record-list" hidden></div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       フッター
+  ========================== -->
+  <footer class="app-footer">
+
+    <p>
+      思いつきを、カタチに。 — Kotodama Apps
+    </p>
+
+  </footer>
+
+
+  <!-- =========================
+       JavaScript
+  ========================== -->
+  <script src="script.js"></script>
+
+</body>
+
+</html>

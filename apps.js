@@ -1,5 +1,13 @@
 const APPS = [
   {
+    name: "最後にいつ？",
+    description: "たまにする作業を記録して、前回から何日経ったかを確認できるアプリ。",
+    category: "生活",
+    icon: "🕰️",
+    url: "apps/saigo-ni-itsu/",
+    date: "2026/07/29"
+  },
+  {
     name: "つづき栞",
     description: "作業をやめる前に「次はここから」を残し、迷わず再開するためのアプリ。",
     category: "生活",

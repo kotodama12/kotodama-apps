@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>元とれメーター | Kotodama Apps</title>
+
+  <meta name="description" content="買った物を使うたびに、1回あたりの金額が下がっていく記録アプリです。" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- =========================
+       ヘッダー
+  ========================== -->
+  <header class="app-header">
+
+    <a href="../../" class="back-link">
+      ← Kotodama Apps
+    </a>
+
+    <div class="title-area">
+
+      <span class="app-icon">🪙</span>
+
+      <div>
+        <h1>元とれメーター</h1>
+
+        <p>
+          使うほど、いい買い物になっていく。
+        </p>
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <!-- =========================
+       メイン
+  ========================== -->
+  <main class="app-container">
+
+    <!-- 買った物を登録 -->
+    <section class="register-section">
+
+      <h2>買った物を登録</h2>
+
+      <p class="section-description">
+        金額と使用回数を入力すると、現在の1回あたりの金額が分かります。
+      </p>
+
+      <form id="itemForm">
+
+        <div class="form-group">
+
+          <label for="itemName">
+            買った物
+          </label>
+
+          <input id="itemName" name="itemName" type="text" placeholder="例：スニーカー" required />
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="purchasePrice">
+            買った金額
+          </label>
+
+          <div class="price-input">
+
+            <input id="purchasePrice" name="purchasePrice" type="number" min="1" step="1" inputmode="numeric"
+              placeholder="10000" required />
+
+            <span>円</span>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+
+          <label for="usageCount">
+            今までに使った回数
+          </label>
+
+          <div class="count-input">
+
+            <input id="usageCount" name="usageCount" type="number" min="0" step="1" inputmode="numeric" value="0"
+              required />
+
+            <span>回</span>
+
+          </div>
+
+        </div>
+
+        <button class="save-button" type="submit">
+          登録する
+        </button>
+
+      </form>
+
+      <p id="saveMessage" class="save-message" aria-live="polite"></p>
+
+    </section>
+
+
+    <!-- 登録した物の一覧 -->
+    <section class="items-section">
+
+      <div class="section-heading">
+
+        <div>
+
+          <p class="section-label">
+            YOUR ITEMS
+          </p>
+
+          <h2>育てている買い物</h2>
+
+        </div>
+
+        <p id="itemCount" class="item-count">
+          0件
+        </p>
+
+      </div>
+
+
+      <!-- 登録がないとき -->
+      <div id="emptyMessage" class="empty-message">
+
+        <span class="empty-icon">🌱</span>
+
+        <p>
+          まだ登録はありません。<br />
+          大切に使いたい物を、ひとつ登録してみましょう。
+        </p>
+
+      </div>
+
+
+      <!-- JavaScriptでカードを表示する場所 -->
+      <div id="itemList" class="item-list" hidden></div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       フッター
+  ========================== -->
+  <footer class="app-footer">
+
+    <p>
+      思いつきを、カタチに。 — Kotodama Apps
+    </p>
+
+  </footer>
+
+
+  <!-- =========================
+       JavaScript
+  ========================== -->
+  <script src="script.js"></script>
+
+</body>
+
+</html>

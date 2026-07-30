@@ -1,5 +1,13 @@
 const APPS = [
   {
+    name: "元とれメーター",
+    description: "買った物を使うたびに、現在の1回あたりの金額が下がっていく記録アプリ。",
+    category: "生活",
+    icon: "🪙",
+    url: "apps/moto-tore-meter/",
+    date: "2026/07/30"
+  },
+  {
     name: "最後にいつ？",
     description: "たまにする作業を記録して、前回から何日経ったかを確認できるアプリ。",
     category: "生活",

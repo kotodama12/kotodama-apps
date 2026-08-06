@@ -1,0 +1,726 @@
+/* =========================
+   基本設定
+========================== */
+:root {
+  --background: #f3efe7;
+  --surface: #fffdf8;
+  --surface-dark: #24322d;
+  --text-main: #26302c;
+  --text-sub: #6d756f;
+  --border: #ddd7cc;
+  --accent: #3f6b59;
+  --accent-dark: #2f5143;
+  --accent-light: #dfe9e3;
+  --good: #4f7c61;
+  --good-light: #e2eee6;
+  --neutral: #a67838;
+  --neutral-light: #f5ead7;
+  --regret: #a75750;
+  --regret-light: #f4e2df;
+  --shadow: 0 12px 30px rgba(48, 55, 50, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at top right,
+      rgba(112, 143, 124, 0.15),
+      transparent 35%),
+    var(--background);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+  line-height: 1.7;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+/* =========================
+   ヘッダー
+========================== */
+.app-header {
+  padding: 24px 20px 70px;
+  color: #ffffff;
+  background:
+    linear-gradient(135deg,
+      rgba(27, 48, 40, 0.97),
+      rgba(56, 91, 76, 0.94));
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.back-link:hover {
+  color: #ffffff;
+  transform: translateX(-3px);
+}
+
+.header-content {
+  width: min(760px, 100%);
+  margin: 54px auto 0;
+  text-align: center;
+}
+
+.app-label {
+  margin: 0 0 8px;
+  color: #bdd2c5;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+h1 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.7rem, 8vw, 5rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.app-subtitle {
+  margin: 18px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 1rem;
+}
+
+
+/* =========================
+   メイン
+========================== */
+main {
+  width: min(820px, calc(100% - 32px));
+  margin: -36px auto 70px;
+}
+
+.card {
+  margin-bottom: 24px;
+  padding: 32px;
+  border: 1px solid rgba(221, 215, 204, 0.8);
+  border-radius: 22px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.section-number {
+  display: grid;
+  flex-shrink: 0;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--accent-dark);
+  background: var(--accent-light);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  line-height: 1.4;
+}
+
+.section-heading p {
+  margin: 4px 0 0;
+  color: var(--text-sub);
+  font-size: 0.9rem;
+}
+
+
+/* =========================
+   入力フォーム
+========================== */
+.form-group {
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.required {
+  display: inline-block;
+  margin-left: 5px;
+  padding: 1px 7px;
+  border-radius: 20px;
+  color: #ffffff;
+  background: var(--accent);
+  font-size: 0.68rem;
+  vertical-align: 2px;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  outline: none;
+  color: var(--text-main);
+  background: #ffffff;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+input[type="text"],
+input[type="date"],
+select {
+  min-height: 50px;
+  padding: 0 14px;
+}
+
+textarea {
+  display: block;
+  min-height: 100px;
+  padding: 13px 14px;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(63, 107, 89, 0.12);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #aaa9a4;
+}
+
+.primary-button {
+  width: 100%;
+  min-height: 54px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 13px;
+  color: #ffffff;
+  background: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  box-shadow: 0 7px 16px rgba(63, 107, 89, 0.2);
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.primary-button:hover {
+  background: var(--accent-dark);
+  box-shadow: 0 9px 20px rgba(63, 107, 89, 0.26);
+  transform: translateY(-2px);
+}
+
+.primary-button:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+
+/* =========================
+   集計
+========================== */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.summary-item {
+  padding: 20px 12px;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.summary-item.success {
+  color: var(--good);
+  background: var(--good-light);
+}
+
+.summary-item.neutral {
+  color: var(--neutral);
+  background: var(--neutral-light);
+}
+
+.summary-item.regret {
+  color: var(--regret);
+  background: var(--regret-light);
+}
+
+.summary-number {
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.summary-label {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+
+/* =========================
+   判断カード
+========================== */
+.decision-list {
+  display: grid;
+  gap: 15px;
+}
+
+.decision-item {
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.decision-item-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.decision-item h3 {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.category-badge {
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: var(--accent-dark);
+  background: var(--accent-light);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.decision-date {
+  margin: 7px 0 0;
+  color: var(--text-sub);
+  font-size: 0.78rem;
+}
+
+.decision-detail {
+  margin-top: 15px;
+  padding: 13px 15px;
+  border-radius: 11px;
+  background: #f7f5f0;
+}
+
+.decision-detail-title {
+  margin: 0 0 3px;
+  color: var(--text-sub);
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.decision-detail-text {
+  margin: 0;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.review-date {
+  margin: 14px 0 0;
+  color: var(--text-sub);
+  font-size: 0.82rem;
+}
+
+.review-date.is-due {
+  color: var(--regret);
+  font-weight: 700;
+}
+
+.item-actions {
+  display: flex;
+  gap: 9px;
+  margin-top: 17px;
+}
+
+.review-button,
+.delete-button {
+  min-height: 42px;
+  padding: 8px 15px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.review-button {
+  flex: 1;
+  border: none;
+  color: #ffffff;
+  background: var(--accent);
+}
+
+.review-button:hover {
+  background: var(--accent-dark);
+}
+
+.delete-button {
+  border: 1px solid var(--border);
+  color: var(--text-sub);
+  background: #ffffff;
+}
+
+.delete-button:hover {
+  color: var(--regret);
+  border-color: var(--regret);
+  background: var(--regret-light);
+}
+
+
+/* =========================
+   振り返り済みカード
+========================== */
+.result-badge {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 0.77rem;
+  font-weight: 700;
+}
+
+.result-badge.good {
+  color: var(--good);
+  background: var(--good-light);
+}
+
+.result-badge.neutral {
+  color: var(--neutral);
+  background: var(--neutral-light);
+}
+
+.result-badge.regret {
+  color: var(--regret);
+  background: var(--regret-light);
+}
+
+
+/* =========================
+   空の表示
+========================== */
+.empty-message {
+  padding: 34px 18px;
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  color: var(--text-sub);
+  text-align: center;
+  background: rgba(247, 245, 240, 0.65);
+}
+
+.empty-message p {
+  margin: 7px 0 0;
+  font-size: 0.9rem;
+}
+
+.empty-icon {
+  font-size: 1.7rem;
+}
+
+
+/* =========================
+   モーダル
+========================== */
+.modal {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal.is-open {
+  display: flex;
+}
+
+.modal-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(20, 29, 25, 0.64);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: relative;
+  z-index: 1;
+  width: min(560px, 100%);
+  max-height: calc(100vh - 40px);
+  padding: 30px;
+  border-radius: 20px;
+  background: var(--surface);
+  box-shadow: 0 24px 60px rgba(12, 19, 16, 0.3);
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  color: var(--text-sub);
+  background: transparent;
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.modal-close:hover {
+  color: var(--text-main);
+  background: #eeeae2;
+}
+
+.modal-label {
+  margin: 0 0 4px;
+  color: var(--accent);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.modal-content h2 {
+  margin: 0;
+  padding-right: 35px;
+}
+
+.review-decision-title {
+  margin: 10px 0 22px;
+  color: var(--text-sub);
+}
+
+.result-fieldset {
+  margin: 0 0 22px;
+  padding: 0;
+  border: none;
+}
+
+.result-fieldset legend {
+  margin-bottom: 9px;
+  font-size: 0.94rem;
+  font-weight: 700;
+}
+
+.result-options {
+  display: grid;
+  gap: 9px;
+}
+
+.result-option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.result-option input {
+  margin: 0 10px 0 0;
+  accent-color: var(--accent);
+}
+
+.result-option:has(input:checked).good {
+  color: var(--good);
+  border-color: var(--good);
+  background: var(--good-light);
+}
+
+.result-option:has(input:checked).neutral {
+  color: var(--neutral);
+  border-color: var(--neutral);
+  background: var(--neutral-light);
+}
+
+.result-option:has(input:checked).regret {
+  color: var(--regret);
+  border-color: var(--regret);
+  background: var(--regret-light);
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+
+/* =========================
+   フッター
+========================== */
+footer {
+  padding: 10px 20px 35px;
+  color: var(--text-sub);
+  text-align: center;
+  font-size: 0.78rem;
+}
+
+footer p {
+  margin: 3px 0;
+}
+
+
+/* =========================
+   スマートフォン対応
+========================== */
+@media (max-width: 600px) {
+  .app-header {
+    padding: 20px 17px 58px;
+  }
+
+  .header-content {
+    margin-top: 40px;
+  }
+
+  h1 {
+    font-size: 3rem;
+  }
+
+  .app-subtitle {
+    font-size: 0.9rem;
+  }
+
+  main {
+    width: min(100% - 22px, 820px);
+    margin-top: -28px;
+  }
+
+  .card {
+    margin-bottom: 16px;
+    padding: 22px 17px;
+    border-radius: 18px;
+  }
+
+  .section-heading {
+    gap: 12px;
+    margin-bottom: 23px;
+  }
+
+  .section-number {
+    width: 38px;
+    height: 38px;
+  }
+
+  .section-heading h2 {
+    font-size: 1.18rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .summary-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 17px;
+  }
+
+  .summary-number,
+  .summary-label {
+    margin: 0;
+  }
+
+  .summary-number {
+    font-size: 1.6rem;
+  }
+
+  .decision-item {
+    padding: 17px;
+  }
+
+  .decision-item-top {
+    display: block;
+  }
+
+  .category-badge {
+    display: inline-block;
+    margin-top: 8px;
+  }
+
+  .item-actions {
+    flex-direction: column;
+  }
+
+  .review-button,
+  .delete-button {
+    width: 100%;
+  }
+
+  .modal {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal-content {
+    width: 100%;
+    max-height: 90vh;
+    padding: 27px 18px 22px;
+    border-radius: 20px 20px 0 0;
+  }
+}

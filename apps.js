@@ -1,5 +1,13 @@
 const APPS = [
   {
+    name: "Decision Log",
+    description: "選んだ理由と、その後の結果を記録して、自分の判断パターンを振り返るアプリ。",
+    category: "生活",
+    icon: "🧭",
+    url: "apps/decision-log/",
+    date: "2026/08/06"
+  },
+  {
     name: "元とれメーター",
     description: "買った物を使うたびに、現在の1回あたりの金額が下がっていく記録アプリ。",
     category: "生活",

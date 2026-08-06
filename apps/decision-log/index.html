@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Decision Log | Kotodama Apps</title>
+
+  <meta name="description" content="選んだ理由と、その後の結果を記録して、自分の判断パターンを振り返るアプリ。">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- =========================
+       ヘッダー
+  ========================== -->
+  <header class="app-header">
+    <a href="../../" class="back-link">← Kotodama Apps</a>
+
+    <div class="header-content">
+      <p class="app-label">DECISION RECORD</p>
+      <h1>Decision Log</h1>
+      <p class="app-subtitle">
+        選んだ理由を残して、未来の判断に活かそう。
+      </p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- =========================
+         判断の入力フォーム
+    ========================== -->
+    <section class="card form-section">
+
+      <div class="section-heading">
+        <span class="section-number">01</span>
+
+        <div>
+          <h2>判断を記録する</h2>
+          <p>まだ結果が分からない今の気持ちを残します。</p>
+        </div>
+      </div>
+
+      <form id="decisionForm">
+
+        <div class="form-group">
+          <label for="decisionTitle">
+            何を決めましたか？
+            <span class="required">必須</span>
+          </label>
+
+          <input type="text" id="decisionTitle" name="decisionTitle" placeholder="例：新しいイヤホンを購入する" maxlength="60"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="decisionCategory">カテゴリー</label>
+
+          <select id="decisionCategory" name="decisionCategory">
+            <option value="買い物">買い物</option>
+            <option value="仕事・勉強">仕事・勉強</option>
+            <option value="人間関係">人間関係</option>
+            <option value="予定">予定</option>
+            <option value="契約">契約</option>
+            <option value="生活">生活</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="decisionReason">
+            なぜ、この判断をしましたか？
+            <span class="required">必須</span>
+          </label>
+
+          <textarea id="decisionReason" name="decisionReason" rows="4" placeholder="例：毎日使うものなので、安さより使いやすさを優先した"
+            maxlength="300" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="expectedResult">どうなることを期待していますか？</label>
+
+          <textarea id="expectedResult" name="expectedResult" rows="3" placeholder="例：移動中も快適に音楽を聴けるようになる"
+            maxlength="200"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="reviewDate">いつ振り返りますか？</label>
+
+          <input type="date" id="reviewDate" name="reviewDate">
+        </div>
+
+        <button type="submit" class="primary-button">
+          この判断を記録する
+        </button>
+
+      </form>
+    </section>
+
+    <!-- =========================
+         振り返り待ち
+    ========================== -->
+    <section class="card">
+
+      <div class="section-heading">
+        <span class="section-number">02</span>
+
+        <div>
+          <h2>振り返り待ち</h2>
+          <p>結果が分かったら、判断を振り返ります。</p>
+        </div>
+      </div>
+
+      <div id="pendingList" class="decision-list">
+
+        <div class="empty-message">
+          <span class="empty-icon">📝</span>
+          <p>まだ記録された判断はありません。</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =========================
+         判断の記録
+    ========================== -->
+    <section class="card">
+
+      <div class="section-heading">
+        <span class="section-number">03</span>
+
+        <div>
+          <h2>振り返った判断</h2>
+          <p>過去の結果から、自分の判断を学びます。</p>
+        </div>
+      </div>
+
+      <div class="summary-grid">
+
+        <div class="summary-item success">
+          <span id="goodCount" class="summary-number">0</span>
+          <span class="summary-label">正解だった</span>
+        </div>
+
+        <div class="summary-item neutral">
+          <span id="neutralCount" class="summary-number">0</span>
+          <span class="summary-label">どちらともいえない</span>
+        </div>
+
+        <div class="summary-item regret">
+          <span id="regretCount" class="summary-number">0</span>
+          <span class="summary-label">後悔した</span>
+        </div>
+
+      </div>
+
+      <div id="reviewedList" class="decision-list">
+
+        <div class="empty-message">
+          <span class="empty-icon">🔍</span>
+          <p>振り返った判断はまだありません。</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================
+       振り返りモーダル
+  ========================== -->
+  <div id="reviewModal" class="modal" aria-hidden="true">
+
+    <div class="modal-overlay" data-close-modal></div>
+
+    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle">
+
+      <button type="button" class="modal-close" aria-label="振り返り画面を閉じる" data-close-modal>
+        ×
+      </button>
+
+      <p class="modal-label">REVIEW</p>
+      <h2 id="reviewModalTitle">この判断を振り返る</h2>
+
+      <p id="reviewDecisionTitle" class="review-decision-title"></p>
+
+      <form id="reviewForm">
+
+        <input type="hidden" id="reviewDecisionId">
+
+        <fieldset class="result-fieldset">
+          <legend>結果はどうでしたか？</legend>
+
+          <div class="result-options">
+
+            <label class="result-option good">
+              <input type="radio" name="reviewResult" value="good" required>
+              <span>正解だった</span>
+            </label>
+
+            <label class="result-option neutral">
+              <input type="radio" name="reviewResult" value="neutral">
+              <span>どちらともいえない</span>
+            </label>
+
+            <label class="result-option regret">
+              <input type="radio" name="reviewResult" value="regret">
+              <span>後悔した</span>
+            </label>
+
+          </div>
+        </fieldset>
+
+        <div class="form-group">
+          <label for="reviewNote">
+            結果と、そこから学んだこと
+          </label>
+
+          <textarea id="reviewNote" name="reviewNote" rows="5" placeholder="例：値段だけでなく、毎日使うかどうかを考えることが大切だった"
+            maxlength="400"></textarea>
+        </div>
+
+        <button type="submit" class="primary-button">
+          振り返りを保存する
+        </button>
+
+      </form>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>思いつきを、カタチに。</p>
+    <p>© Kotodama Apps</p>
+  </footer>
+
+  <script src="script.js"></script>
+
+</body>
+
+</html>

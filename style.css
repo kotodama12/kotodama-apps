@@ -542,3 +542,31 @@ body.modal-open {
     font-size: 14px;
   }
 }
+
+/* =========================
+   英語説明
+========================== */
+.english-text {
+  display: block;
+  margin-top: 12px;
+  padding-left: 14px;
+  border-left: 3px solid #8cab8d;
+  color: #667068;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+  font-size: 0.9rem;
+  line-height: 1.7;
+  letter-spacing: 0.01em;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 600px) {
+  .english-text {
+    margin-top: 10px;
+    padding-left: 11px;
+    font-size: 0.84rem;
+    line-height: 1.65;
+  }
+}

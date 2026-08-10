@@ -1,5 +1,13 @@
 const APPS = [
   {
+    name: "Let’s Go Here!",
+    description: "複数の候補から、葉っぱのアニメーションで今日の行き先を楽しく決めるアプリ。",
+    category: "生活",
+    icon: "🍃",
+    url: "apps/Let’s Go Here/",
+    date: "2026/08/10"
+  },
+  {
     name: "Decision Log",
     description: "選んだ理由と、その後の結果を記録して、自分の判断パターンを振り返るアプリ。",
     category: "生活",

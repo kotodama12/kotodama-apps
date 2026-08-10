@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="候補の中から今日の行き先を楽しく決めるアプリ。">
+  <title>Let’s Go Here!</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main>
+    <a class="back-to-kotodama" href="../../" aria-label="Kotodama Appsのメインページに戻る">
+      <span aria-hidden="true">←</span> Kotodama Appsへ戻る
+    </a>
+
+    <div class="nature-background" aria-hidden="true">
+      <div class="sun-halo"></div>
+      <div class="sun-rays"><i></i><i></i><i></i></div>
+      <div class="far-forest"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="river">
+        <span></span><span></span><span></span><span></span>
+      </div>
+      <div class="river-bank bank-left"></div>
+      <div class="river-bank bank-right"></div>
+      <div class="canopy-shadow shadow-one"></div>
+      <div class="canopy-shadow shadow-two"></div>
+      <div class="floating-leaf leaf-a"></div>
+      <div class="floating-leaf leaf-b"></div>
+      <div class="floating-leaf leaf-c"></div>
+    </div>
+
+    <section id="treeScene" class="tree-scene" role="dialog" aria-modal="true" aria-label="行き先の抽選結果" hidden>
+      <div class="scene-sunlight" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="scene-river" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="scene-bank scene-bank-left" aria-hidden="true"></div>
+      <div class="scene-bank scene-bank-right" aria-hidden="true"></div>
+      <div class="tree-crown" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i>
+      </div>
+      <div class="tree-trunk" aria-hidden="true"></div>
+      <div class="tree-ground-shadow" aria-hidden="true"></div>
+      <div class="ambient-leaves" aria-hidden="true">
+        <i></i><i></i><i></i><i></i><i></i><i></i>
+      </div>
+
+      <p id="treeMessage" class="tree-message">木が行き先を選んでいます…</p>
+
+      <div class="chosen-leaf">
+        <div class="leaf-vein" aria-hidden="true"></div>
+        <div class="leaf-answer">
+          <small>LET’S GO HERE!</small>
+          <strong id="resultPlace"></strong>
+        </div>
+      </div>
+
+      <div id="resultActions" class="result-actions" hidden>
+        <p>葉っぱが選んだ場所へ、いってらっしゃい！</p>
+        <button id="backButton" type="button">候補画面に戻る</button>
+      </div>
+    </section>
+
+    <div class="app-shell">
+      <header>
+        <div class="eyebrow"><span>✦</span> WHERE TO NEXT?</div>
+        <h1>Let’s Go Here!</h1>
+        <p>候補を入れたら、あとはおまかせ。<br>今日の行き先を楽しく決めよう！</p>
+      </header>
+
+      <section class="card" aria-labelledby="placeHeading">
+        <div class="step-heading">
+          <span class="step-number">1</span>
+          <div>
+            <h2 id="placeHeading">行き先の候補</h2>
+            <p>2つ以上追加してください</p>
+          </div>
+        </div>
+
+        <form id="placeForm" class="add-form">
+          <input id="placeInput" type="text" placeholder="例：海の見えるカフェ" aria-label="行き先候補" autocomplete="off">
+          <button id="addButton" class="add-button" type="submit" disabled>＋ 追加</button>
+        </form>
+
+        <div id="placeList" class="place-list" aria-live="polite"></div>
+        <p id="emptyMessage" class="empty-message">行ってみたい場所を追加してね。</p>
+
+        <div class="route" aria-hidden="true"><span>•</span><span>•</span><span>•</span><span>➤</span></div>
+
+        <button id="decideButton" class="decide-button" type="button" disabled>
+          <span>葉っぱに決めてもらう！</span>
+          <b>🍃</b>
+        </button>
+        <p id="hint" class="hint">候補を2つ追加すると決められます</p>
+      </section>
+
+      <footer>思いつきを、カタチに。 <span>— Kotodama Apps</span></footer>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

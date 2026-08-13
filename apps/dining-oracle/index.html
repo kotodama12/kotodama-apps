@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#081d24">
+  <title>Dining Oracle | 飲食店ガチャ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <a href="../../" style="
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 100;
+    padding: 10px 16px;
+    border: 1px solid rgba(245, 189, 90, 0.45);
+    border-radius: 999px;
+    color: #fff5dc;
+    background: rgba(7, 25, 29, 0.88);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    backdrop-filter: blur(8px);
+  ">
+    ← Kotodama Appsへ戻る
+  </a>
+  <main class="app-shell">
+    <header class="hero">
+      <h1>Dining Oracle</h1>
+      <p>夏夜の屋台が、今日のお店を照らします。</p>
+    </header>
+    <section class="selector">
+      <div class="section-title">
+        <div><span>01</span>
+          <h2>候補を選ぶ</h2>
+        </div><button id="toggleAll" type="button">すべて外す</button>
+      </div>
+      <div id="categoryGrid" class="category-grid"></div>
+      <form id="customCategoryForm" class="custom-form"><label for="customCategoryInput">候補にないお店</label>
+        <div><input id="customCategoryInput" maxlength="24" placeholder="例：ハワイ料理"
+            autocomplete="off"><button>追加する</button></div>
+        <p id="customCategoryMessage" aria-live="polite"></p>
+      </form>
+      <p id="selectionCount" class="count" aria-live="polite"></p>
+    </section>
+    <section class="draw-section">
+      <div class="section-title draw-title">
+        <div><span>02</span>
+          <h2>明かりを灯す</h2>
+        </div>
+        <p>屋台またはボタンをタップ</p>
+      </div>
+      <div class="festival-map" id="festivalMap">
+        <div class="moonlight"></div>
+        <div class="river"><i></i><i></i><i></i></div>
+        <div class="bridge"></div>
+        <div class="path path-one"></div>
+        <div class="path path-two"></div>
+        <div class="trees"></div>
+        <div class="fireflies"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="stalls" id="stalls"></div><button class="center-lantern" id="mapButton"
+          type="button"><i></i><span>灯す</span></button>
+        <div class="result-board" aria-live="assertive"><small>TONIGHT'S DESTINATION</small><strong
+            id="resultText">？？？</strong><span id="resultHint">祭りの明かりに聞いてみよう</span></div>
+      </div><button id="drawButton" class="draw-button">屋台の明かりを灯す</button><button id="retryButton" class="retry-button"
+        hidden>もう一度選ぶ</button>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+
+</html>

@@ -1,5 +1,13 @@
 const APPS = [
   {
+    name: "Dining Oracle",
+    description: "夏祭りの屋台や魔法の鍋の演出で、今日行く飲食店のジャンルを楽しく決めるアプリ。",
+    category: "生活",
+    icon: "🏮",
+    url: "apps/dining-oracle/",
+    date: "2026/08/13"
+  },
+  {
     name: "Let’s Go Here!",
     description: "複数の候補から、葉っぱのアニメーションで今日の行き先を楽しく決めるアプリ。",
     category: "生活",

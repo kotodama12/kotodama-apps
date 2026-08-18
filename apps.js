@@ -1,5 +1,13 @@
 const APPS = [
   {
+    name: "Pocket Quest",
+    description: "空き時間・場所・元気に合わせて、今できる小さなクエストを1つ提案するアプリ。",
+    category: "生活",
+    icon: "🗺️",
+    url: "apps/pocket-quest/",
+    date: "2026/08/18"
+  },
+  {
     name: "Dining Oracle",
     description: "夏祭りの屋台や魔法の鍋の演出で、今日行く飲食店のジャンルを楽しく決めるアプリ。",
     category: "生活",

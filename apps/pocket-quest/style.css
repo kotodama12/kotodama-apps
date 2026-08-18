@@ -1,0 +1,1092 @@
+/* ========================================
+   Pocket Quest
+   Kotodama Apps
+======================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --forest-dark: #183c31;
+  --forest-green: #315d47;
+  --cream: #fff8df;
+  --wood-dark: #6e452b;
+  --wood: #9a6841;
+  --wood-light: #c58c55;
+  --gold: #f1c766;
+  --text-dark: #25372e;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text-dark);
+  font-family:
+    "Hiragino Kaku Gothic ProN",
+    "Yu Gothic",
+    Meiryo,
+    sans-serif;
+  background:
+    linear-gradient(to bottom,
+      #c8e7c1 0%,
+      #e9f2c8 36%,
+      #9ac182 70%,
+      #52775c 100%);
+}
+
+/* ========================================
+   森の背景
+======================================== */
+
+.forest-background {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.forest-background::before {
+  position: absolute;
+  right: -100px;
+  bottom: -30px;
+  left: -100px;
+  height: 50%;
+  content: "";
+  background:
+    radial-gradient(ellipse at 10% 100%,
+      #254f3e 0 24%,
+      transparent 25%),
+    radial-gradient(ellipse at 32% 105%,
+      #315e47 0 27%,
+      transparent 28%),
+    radial-gradient(ellipse at 57% 105%,
+      #27513f 0 30%,
+      transparent 31%),
+    radial-gradient(ellipse at 83% 100%,
+      #315d46 0 28%,
+      transparent 29%);
+  opacity: 0.92;
+}
+
+.forest-background::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 32%;
+  content: "";
+  background:
+    radial-gradient(ellipse at center bottom,
+      rgba(112, 150, 88, 0.9),
+      rgba(40, 79, 59, 0.95));
+}
+
+.sunlight {
+  position: absolute;
+  top: -25%;
+  width: 180px;
+  height: 110%;
+  background:
+    linear-gradient(to bottom,
+      rgba(255, 252, 193, 0.5),
+      rgba(255, 252, 193, 0));
+  filter: blur(10px);
+  opacity: 0.65;
+  transform: rotate(18deg);
+}
+
+.sunlight-one {
+  left: 15%;
+}
+
+.sunlight-two {
+  right: 12%;
+  width: 110px;
+  opacity: 0.35;
+  transform: rotate(-13deg);
+}
+
+.forest-mist {
+  position: absolute;
+  right: -10%;
+  bottom: 20%;
+  left: -10%;
+  height: 170px;
+  background:
+    radial-gradient(ellipse at center,
+      rgba(255, 255, 226, 0.38),
+      transparent 65%);
+  filter: blur(18px);
+  animation: mistMove 12s ease-in-out infinite alternate;
+}
+
+@keyframes mistMove {
+  from {
+    transform: translateX(-3%);
+  }
+
+  to {
+    transform: translateX(3%);
+  }
+}
+
+/* ========================================
+   ヘッダー
+======================================== */
+
+.app-header {
+  width: min(100% - 32px, 920px);
+  margin: 0 auto;
+  padding: 24px 0 8px;
+}
+
+.home-link {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: #315440;
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: rgba(255, 250, 222, 0.76);
+  border: 1px solid rgba(72, 105, 73, 0.24);
+  border-radius: 999px;
+  box-shadow: 0 6px 18px rgba(40, 76, 54, 0.12);
+  backdrop-filter: blur(8px);
+  transition:
+    transform 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.home-link:hover {
+  background: rgba(255, 250, 222, 0.96);
+  transform: translateY(-2px);
+}
+
+/* ========================================
+   メイン
+======================================== */
+
+.app-container {
+  width: min(100% - 32px, 720px);
+  margin: 0 auto;
+  padding: 26px 0 70px;
+}
+
+.hero-section {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.app-label {
+  margin-bottom: 8px;
+  color: #436d52;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+}
+
+h1 {
+  color: var(--forest-dark);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.8rem, 10vw, 5rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-shadow:
+    0 3px 0 rgba(255, 255, 224, 0.7),
+    0 8px 20px rgba(37, 76, 54, 0.16);
+}
+
+.app-description {
+  margin-top: 15px;
+  color: #3f624c;
+  font-size: 0.98rem;
+  font-weight: 600;
+  line-height: 1.8;
+}
+
+/* ========================================
+   条件選択パネル
+======================================== */
+
+.quest-panel {
+  padding: 26px;
+  background:
+    linear-gradient(145deg,
+      rgba(255, 251, 224, 0.94),
+      rgba(240, 243, 202, 0.88));
+  border: 1px solid rgba(72, 103, 71, 0.22);
+  border-radius: 26px;
+  box-shadow:
+    0 22px 50px rgba(30, 69, 50, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+}
+
+.condition-group+.condition-group {
+  margin-top: 24px;
+}
+
+.condition-title {
+  margin-bottom: 11px;
+  color: #355340;
+  font-size: 0.86rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+}
+
+.choice-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.choice-button {
+  flex: 1 1 auto;
+  min-width: 92px;
+  padding: 12px 14px;
+  color: #4c654f;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(255, 255, 244, 0.75);
+  border: 1px solid rgba(81, 117, 81, 0.24);
+  border-radius: 14px;
+  box-shadow: 0 4px 8px rgba(47, 84, 58, 0.06);
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.choice-button:hover {
+  border-color: rgba(66, 112, 72, 0.5);
+  transform: translateY(-2px);
+}
+
+.choice-button.selected {
+  color: #fffdf0;
+  background:
+    linear-gradient(135deg,
+      #557d59,
+      #315d47);
+  border-color: #315d47;
+  box-shadow:
+    0 7px 14px rgba(35, 78, 52, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+.find-quest-button {
+  position: relative;
+  width: 100%;
+  margin-top: 28px;
+  padding: 17px 20px;
+  overflow: hidden;
+  color: #fff9dc;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  background:
+    linear-gradient(135deg,
+      #315f48,
+      #1e4436);
+  border: 1px solid #173a2e;
+  border-radius: 16px;
+  box-shadow:
+    0 9px 0 #173a2e,
+    0 15px 25px rgba(26, 62, 45, 0.25);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.find-quest-button::after {
+  position: absolute;
+  top: -80%;
+  left: -40%;
+  width: 35%;
+  height: 260%;
+  content: "";
+  background: rgba(255, 255, 255, 0.14);
+  transform: rotate(24deg);
+  transition: left 0.45s ease;
+}
+
+.find-quest-button:hover::after {
+  left: 120%;
+}
+
+.find-quest-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 11px 0 #173a2e,
+    0 18px 30px rgba(26, 62, 45, 0.28);
+}
+
+.find-quest-button:active {
+  transform: translateY(7px);
+  box-shadow:
+    0 2px 0 #173a2e,
+    0 6px 12px rgba(26, 62, 45, 0.22);
+}
+
+/* ========================================
+   クエスト掲示板
+======================================== */
+
+.quest-result {
+  position: relative;
+  width: min(100%, 590px);
+  margin: 64px auto 0;
+  padding-top: 45px;
+}
+
+.board-rope {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  width: 5px;
+  height: 85px;
+  background:
+    repeating-linear-gradient(45deg,
+      #b18a50 0 4px,
+      #7e5d34 4px 8px);
+  border-radius: 999px;
+  box-shadow: 1px 0 2px rgba(57, 38, 22, 0.25);
+  transform-origin: top;
+}
+
+.board-rope-left {
+  left: 22%;
+  transform: rotate(-8deg);
+}
+
+.board-rope-right {
+  right: 22%;
+  transform: rotate(8deg);
+}
+
+.quest-board {
+  position: relative;
+  min-height: 250px;
+  padding: 40px 34px 34px;
+  text-align: center;
+  background:
+    linear-gradient(90deg,
+      rgba(92, 55, 31, 0.12),
+      transparent 8% 92%,
+      rgba(92, 55, 31, 0.14)),
+    repeating-linear-gradient(0deg,
+      var(--wood-light) 0 48px,
+      #b77b49 49px 52px);
+  border: 6px solid var(--wood-dark);
+  border-radius: 11px 15px 12px 9px;
+  box-shadow:
+    0 15px 0 rgba(80, 53, 34, 0.2),
+    0 26px 42px rgba(25, 58, 42, 0.3),
+    inset 0 0 22px rgba(85, 50, 27, 0.3);
+  transform: rotate(-0.5deg);
+}
+
+.quest-board::before,
+.quest-board::after {
+  position: absolute;
+  top: 15px;
+  bottom: 15px;
+  width: 2px;
+  content: "";
+  background: rgba(105, 61, 34, 0.2);
+}
+
+.quest-board::before {
+  left: 32%;
+}
+
+.quest-board::after {
+  right: 31%;
+}
+
+.board-nail {
+  position: absolute;
+  top: 14px;
+  width: 13px;
+  height: 13px;
+  background:
+    radial-gradient(circle at 35% 30%,
+      #ddd7bd,
+      #817a67 55%,
+      #4e493e);
+  border-radius: 50%;
+  box-shadow: 0 2px 3px rgba(44, 31, 22, 0.5);
+}
+
+.board-nail-left {
+  left: 18px;
+}
+
+.board-nail-right {
+  right: 18px;
+}
+
+.quest-label {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  padding: 6px 13px;
+  color: #fff7d5;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 0.73rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  background: rgba(75, 45, 28, 0.88);
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(72, 42, 24, 0.2);
+}
+
+.quest-icon {
+  position: relative;
+  z-index: 1;
+  margin: 18px 0 10px;
+  font-size: 2.8rem;
+  filter: drop-shadow(0 4px 4px rgba(67, 41, 24, 0.25));
+}
+
+.quest-text {
+  position: relative;
+  z-index: 1;
+  color: #3d2b20;
+  font-size: clamp(1.15rem, 4.5vw, 1.45rem);
+  font-weight: 800;
+  line-height: 1.65;
+  text-shadow: 0 1px 0 rgba(255, 230, 177, 0.6);
+}
+
+.quest-info {
+  position: relative;
+  z-index: 1;
+  margin-top: 14px;
+  color: #654832;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1.7;
+}
+
+.quest-result.is-revealing .quest-board {
+  animation: boardReveal 0.65s ease both;
+}
+
+.quest-result.is-revealing .quest-icon {
+  animation: iconPop 0.65s 0.16s ease both;
+}
+
+.quest-result.is-revealing .quest-text {
+  animation: textReveal 0.55s 0.24s ease both;
+}
+
+@keyframes boardReveal {
+  0% {
+    opacity: 0;
+    transform: translateY(-25px) rotate(-4deg) scale(0.94);
+  }
+
+  60% {
+    transform: translateY(5px) rotate(1.5deg) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(-0.5deg) scale(1);
+  }
+}
+
+@keyframes iconPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-20deg);
+  }
+
+  65% {
+    transform: scale(1.2) rotate(7deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes textReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   結果ボタン
+======================================== */
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  width: min(100%, 500px);
+  margin: 30px auto 0;
+}
+
+.result-actions[hidden] {
+  display: none;
+}
+
+.secondary-button,
+.complete-button {
+  flex: 1;
+  min-height: 52px;
+  padding: 13px 16px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  border-radius: 14px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.secondary-button {
+  color: #3e5f48;
+  background: rgba(255, 251, 226, 0.88);
+  border: 1px solid rgba(62, 95, 72, 0.28);
+  box-shadow: 0 7px 16px rgba(35, 73, 50, 0.12);
+}
+
+.complete-button {
+  color: #533b1d;
+  background:
+    linear-gradient(135deg,
+      #f4d77a,
+      #e5b952);
+  border: 1px solid #c59a3d;
+  box-shadow:
+    0 7px 0 #aa7d31,
+    0 13px 20px rgba(93, 67, 29, 0.2);
+}
+
+.secondary-button:hover,
+.complete-button:hover {
+  transform: translateY(-2px);
+}
+
+.complete-button:active {
+  transform: translateY(5px);
+  box-shadow:
+    0 2px 0 #aa7d31,
+    0 6px 10px rgba(93, 67, 29, 0.18);
+}
+
+.complete-message {
+  width: min(100%, 520px);
+  margin: 30px auto 0;
+  padding: 18px;
+  color: #31543f;
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255, 249, 207, 0.92);
+  border: 2px solid rgba(218, 178, 79, 0.7);
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(38, 72, 48, 0.16);
+  animation: completePop 0.5s ease both;
+}
+
+.complete-message[hidden] {
+  display: none;
+}
+
+@keyframes completePop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+
+  70% {
+    transform: scale(1.04);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ========================================
+   自分のクエスト登録
+======================================== */
+
+.custom-quest-section {
+  width: min(100%, 650px);
+  margin: 65px auto 0;
+}
+
+.custom-quest-details {
+  overflow: hidden;
+  background:
+    linear-gradient(145deg,
+      rgba(255, 251, 224, 0.96),
+      rgba(232, 239, 194, 0.92));
+  border: 1px solid rgba(70, 103, 70, 0.26);
+  border-radius: 22px;
+  box-shadow:
+    0 20px 42px rgba(29, 66, 47, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(12px);
+}
+
+.custom-quest-summary {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  padding: 21px 23px;
+  color: #345540;
+  cursor: pointer;
+  list-style: none;
+  transition: background-color 0.2s ease;
+}
+
+.custom-quest-summary::-webkit-details-marker {
+  display: none;
+}
+
+.custom-quest-summary:hover {
+  background: rgba(255, 255, 239, 0.5);
+}
+
+.summary-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 44px;
+  font-size: 1.4rem;
+  background: rgba(255, 255, 239, 0.75);
+  border: 1px solid rgba(71, 104, 72, 0.2);
+  border-radius: 50%;
+  box-shadow: 0 5px 12px rgba(44, 77, 50, 0.1);
+  place-items: center;
+}
+
+.custom-quest-summary>span:nth-child(2) {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.custom-quest-summary strong {
+  font-size: 0.95rem;
+}
+
+.custom-quest-summary small {
+  color: #69806c;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.summary-arrow {
+  color: #66806b;
+  font-size: 0.75rem;
+  transition: transform 0.3s ease;
+}
+
+.custom-quest-details[open] .summary-arrow {
+  transform: rotate(180deg);
+}
+
+.custom-quest-content {
+  padding: 25px 23px 27px;
+  border-top: 1px dashed rgba(76, 105, 75, 0.27);
+  animation: customAreaOpen 0.35s ease both;
+}
+
+@keyframes customAreaOpen {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========================================
+   入力フォーム
+======================================== */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  color: #3d5b46;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  min-height: 47px;
+  padding: 11px 13px;
+  color: #354c3b;
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  background: rgba(255, 255, 245, 0.82);
+  border: 1px solid rgba(77, 111, 79, 0.28);
+  border-radius: 12px;
+  outline: none;
+  box-shadow: inset 0 2px 5px rgba(51, 79, 55, 0.05);
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.form-group input::placeholder {
+  color: #92a195;
+  font-weight: 500;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  background: #fffff7;
+  border-color: #668d68;
+  box-shadow:
+    0 0 0 3px rgba(102, 141, 104, 0.14),
+    inset 0 2px 5px rgba(51, 79, 55, 0.04);
+}
+
+.custom-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.add-quest-button {
+  width: 100%;
+  margin-top: 21px;
+  padding: 14px 18px;
+  color: #fff9dc;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  background:
+    linear-gradient(135deg,
+      #537c59,
+      #315d47);
+  border: 1px solid #294f3c;
+  border-radius: 13px;
+  box-shadow:
+    0 6px 0 #244737,
+    0 11px 18px rgba(34, 74, 51, 0.2);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.add-quest-button:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 8px 0 #244737,
+    0 14px 21px rgba(34, 74, 51, 0.22);
+}
+
+.add-quest-button:active {
+  transform: translateY(5px);
+  box-shadow:
+    0 1px 0 #244737,
+    0 5px 9px rgba(34, 74, 51, 0.18);
+}
+
+.custom-quest-message {
+  min-height: 21px;
+  margin-top: 12px;
+  color: #3e714b;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.custom-quest-message.is-error {
+  color: #a34b3c;
+}
+
+/* ========================================
+   登録済みクエスト
+======================================== */
+
+.saved-quests-area {
+  margin-top: 27px;
+  padding-top: 23px;
+  border-top: 1px dashed rgba(76, 105, 75, 0.27);
+}
+
+.saved-quests-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 13px;
+}
+
+.saved-quests-heading h2 {
+  color: #3b5944;
+  font-size: 0.9rem;
+}
+
+.saved-quests-heading span {
+  padding: 4px 10px;
+  color: #56715c;
+  font-size: 0.7rem;
+  font-weight: 800;
+  background: rgba(255, 255, 240, 0.7);
+  border: 1px solid rgba(79, 112, 80, 0.2);
+  border-radius: 999px;
+}
+
+.custom-quest-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.empty-quest-message {
+  padding: 22px 15px;
+  color: #7b8d7d;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.7;
+  text-align: center;
+  background: rgba(255, 255, 244, 0.42);
+  border: 1px dashed rgba(77, 108, 78, 0.26);
+  border-radius: 12px;
+}
+
+.custom-quest-item {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 13px;
+  background: rgba(255, 255, 243, 0.68);
+  border: 1px solid rgba(77, 108, 78, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(45, 75, 50, 0.06);
+}
+
+.custom-quest-item-icon {
+  display: grid;
+  flex: 0 0 auto;
+  width: 38px;
+  height: 38px;
+  font-size: 1.15rem;
+  background:
+    linear-gradient(145deg,
+      #f6dfa0,
+      #ddb861);
+  border: 1px solid #caa24f;
+  border-radius: 50%;
+  place-items: center;
+}
+
+.custom-quest-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.custom-quest-item-text {
+  overflow: hidden;
+  color: #354e3c;
+  font-size: 0.82rem;
+  font-weight: 800;
+  line-height: 1.5;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.custom-quest-item-conditions {
+  margin-top: 4px;
+  color: #748578;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.delete-quest-button {
+  display: grid;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  color: #8a5b50;
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: rgba(255, 245, 235, 0.72);
+  border: 1px solid rgba(145, 81, 67, 0.2);
+  border-radius: 9px;
+  place-items: center;
+  transition:
+    color 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.delete-quest-button:hover {
+  color: #fff;
+  background: #a65c4c;
+  transform: scale(1.06);
+}
+
+/* ========================================
+   フッター
+======================================== */
+
+.app-footer {
+  padding: 0 20px 30px;
+  color: rgba(255, 255, 225, 0.78);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* ========================================
+   スマートフォン
+======================================== */
+
+@media (max-width: 600px) {
+  .app-header {
+    width: min(100% - 24px, 920px);
+    padding-top: 16px;
+  }
+
+  .app-container {
+    width: min(100% - 24px, 720px);
+    padding-top: 18px;
+  }
+
+  .hero-section {
+    margin-bottom: 24px;
+  }
+
+  .app-description {
+    font-size: 0.9rem;
+  }
+
+  .quest-panel {
+    padding: 21px 16px 23px;
+    border-radius: 21px;
+  }
+
+  .choice-list {
+    gap: 8px;
+  }
+
+  .choice-button {
+    min-width: 78px;
+    padding: 11px 9px;
+    font-size: 0.82rem;
+  }
+
+  .quest-result {
+    margin-top: 55px;
+  }
+
+  .quest-board {
+    min-height: 235px;
+    padding: 37px 21px 30px;
+    border-width: 5px;
+  }
+
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .secondary-button,
+  .complete-button {
+    width: 100%;
+  }
+
+  .custom-quest-section {
+    margin-top: 52px;
+  }
+
+  .custom-quest-summary {
+    padding: 18px 16px;
+  }
+
+  .summary-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .custom-quest-content {
+    padding: 22px 16px 24px;
+  }
+
+  .custom-form-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .custom-quest-item {
+    align-items: flex-start;
+  }
+
+  .custom-quest-item-text {
+    display: -webkit-box;
+    overflow: hidden;
+    white-space: normal;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* ========================================
+   動きを減らす設定
+======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

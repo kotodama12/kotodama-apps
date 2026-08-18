@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pocket Quest | Kotodama Apps</title>
+
+  <meta name="description" content="空き時間・場所・元気に合わせて、今できる小さなクエストを1つ提案するアプリ。">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="forest-background">
+    <div class="sunlight sunlight-one"></div>
+    <div class="sunlight sunlight-two"></div>
+    <div class="forest-mist"></div>
+  </div>
+
+  <header class="app-header">
+    <a href="../../index.html" class="home-link">
+      ← Kotodama Appsへ戻る
+    </a>
+  </header>
+
+  <main class="app-container">
+    <section class="hero-section">
+      <p class="app-label">SMALL QUEST GENERATOR</p>
+
+      <h1>Pocket Quest</h1>
+
+      <p class="app-description">
+        今のあなたにできる、小さなクエストを探します。
+      </p>
+    </section>
+
+    <section class="quest-panel">
+      <div class="condition-group">
+        <p class="condition-title">空き時間</p>
+
+        <div class="choice-list" id="timeChoices">
+          <button type="button" class="choice-button" data-value="5">
+            5分
+          </button>
+
+          <button type="button" class="choice-button selected" data-value="10">
+            10分
+          </button>
+
+          <button type="button" class="choice-button" data-value="30">
+            30分
+          </button>
+
+          <button type="button" class="choice-button" data-value="60">
+            60分
+          </button>
+        </div>
+      </div>
+
+      <div class="condition-group">
+        <p class="condition-title">今いる場所</p>
+
+        <div class="choice-list" id="placeChoices">
+          <button type="button" class="choice-button selected" data-value="home">
+            🏠 自宅
+          </button>
+
+          <button type="button" class="choice-button" data-value="outside">
+            🌿 外出先
+          </button>
+
+          <button type="button" class="choice-button" data-value="work">
+            💼 職場・学校
+          </button>
+        </div>
+      </div>
+
+      <div class="condition-group">
+        <p class="condition-title">今の元気</p>
+
+        <div class="choice-list" id="energyChoices">
+          <button type="button" class="choice-button" data-value="low">
+            🍂 少なめ
+          </button>
+
+          <button type="button" class="choice-button selected" data-value="normal">
+            🌱 普通
+          </button>
+
+          <button type="button" class="choice-button" data-value="high">
+            ☀️ 元気
+          </button>
+        </div>
+      </div>
+
+      <button type="button" id="findQuestButton" class="find-quest-button">
+        クエストを探す
+      </button>
+    </section>
+
+    <section id="questResult" class="quest-result" aria-live="polite">
+      <div class="board-rope board-rope-left"></div>
+      <div class="board-rope board-rope-right"></div>
+
+      <div class="quest-board">
+        <div class="board-nail board-nail-left"></div>
+        <div class="board-nail board-nail-right"></div>
+
+        <p class="quest-label">TODAY'S QUEST</p>
+
+        <div class="quest-icon" id="questIcon">
+          🗺️
+        </div>
+
+        <p class="quest-text" id="questText">
+          条件を選んで、クエストを探そう。
+        </p>
+
+        <p class="quest-info" id="questInfo">
+          小さな一歩が、今日を少しだけ前に進めます。
+        </p>
+      </div>
+    </section>
+
+    <section id="resultActions" class="result-actions" hidden>
+      <button type="button" id="retryButton" class="secondary-button">
+        別のクエスト
+      </button>
+
+      <button type="button" id="completeButton" class="complete-button">
+        クエスト完了！
+      </button>
+    </section>
+
+    <p id="completeMessage" class="complete-message" hidden>
+      QUEST COMPLETE！小さな冒険、おつかれさまでした。
+    </p>
+
+    <!-- =================================
+         自分のクエスト
+    ================================== -->
+
+    <section class="custom-quest-section">
+      <details class="custom-quest-details">
+        <summary class="custom-quest-summary">
+          <span class="summary-icon">📜</span>
+
+          <span>
+            <strong>自分のクエストを登録する</strong>
+            <small>あなた専用の候補を追加できます</small>
+          </span>
+
+          <span class="summary-arrow">▼</span>
+        </summary>
+
+        <div class="custom-quest-content">
+          <form id="customQuestForm">
+            <div class="form-group">
+              <label for="customQuestText">
+                クエスト内容
+              </label>
+
+              <input type="text" id="customQuestText" maxlength="80" placeholder="例：読みかけの本を10ページ読もう" required>
+            </div>
+
+            <div class="custom-form-grid">
+              <div class="form-group">
+                <label for="customQuestTime">
+                  必要な時間
+                </label>
+
+                <select id="customQuestTime" required>
+                  <option value="5">5分</option>
+                  <option value="10" selected>10分</option>
+                  <option value="30">30分</option>
+                  <option value="60">60分</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="customQuestPlace">
+                  場所
+                </label>
+
+                <select id="customQuestPlace" required>
+                  <option value="home">🏠 自宅</option>
+                  <option value="outside">🌿 外出先</option>
+                  <option value="work">💼 職場・学校</option>
+                  <option value="anywhere">🗺️ どこでも</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="customQuestEnergy">
+                  必要な元気
+                </label>
+
+                <select id="customQuestEnergy" required>
+                  <option value="low">🍂 少なめ</option>
+                  <option value="normal" selected>🌱 普通</option>
+                  <option value="high">☀️ 元気</option>
+                  <option value="any">✨ どの元気でも</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="add-quest-button">
+              ＋ クエストを登録する
+            </button>
+
+            <p id="customQuestMessage" class="custom-quest-message" aria-live="polite"></p>
+          </form>
+
+          <div class="saved-quests-area">
+            <div class="saved-quests-heading">
+              <h2>登録したクエスト</h2>
+
+              <span id="customQuestCount">
+                0件
+              </span>
+            </div>
+
+            <div id="customQuestList" class="custom-quest-list">
+              <p class="empty-quest-message">
+                まだ自分のクエストは登録されていません。
+              </p>
+            </div>
+          </div>
+        </div>
+      </details>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>思いつきを、カタチに。— Kotodama Apps</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

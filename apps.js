@@ -1,5 +1,14 @@
 const APPS = [
   {
+    name: "Place Keeper",
+    description: "普段と違う場所に置いた物を写真や場所と一緒に記録して、あとから探せるアプリ。",
+    category: "生活",
+    icon: "📚",
+    url: "apps/place-keeper/",
+    date: "2026/08/19"
+  },
+
+  {
     name: "Pocket Quest",
     description: "空き時間・場所・元気に合わせて、今できる小さなクエストを1つ提案するアプリ。",
     category: "生活",

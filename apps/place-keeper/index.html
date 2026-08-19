@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="description" content="普段と違う場所に置いた物を記録して、あとから探せるアプリです。">
+
+  <title>Place Keeper | Kotodama Apps</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- 魔法図書館の背景 -->
+  <div class="library-background" aria-hidden="true"></div>
+  <div class="background-overlay" aria-hidden="true"></div>
+
+  <!-- 背景の光 -->
+  <div class="light-effects" aria-hidden="true">
+    <span class="magic-light light-1"></span>
+    <span class="magic-light light-2"></span>
+    <span class="magic-light light-3"></span>
+    <span class="magic-light light-4"></span>
+    <span class="magic-light light-5"></span>
+    <span class="magic-light light-6"></span>
+    <span class="magic-light light-7"></span>
+    <span class="magic-light light-8"></span>
+  </div>
+
+  <header class="app-header">
+    <a class="home-link" href="../../index.html" aria-label="Kotodama Appsのホームへ戻る">
+      ← Kotodama Apps
+    </a>
+  </header>
+
+  <main class="app-container">
+    <!-- タイトル -->
+    <section class="hero">
+      <p class="hero-label">THE LIBRARY OF LOST THINGS</p>
+
+      <div class="title-decoration" aria-hidden="true">
+        <span></span>
+        <span class="title-symbol">✦</span>
+        <span></span>
+      </div>
+
+      <h1>Place Keeper</h1>
+
+      <p class="hero-description">
+        物の居場所を、この図書館に記録します。<br>
+        「どこに置いた？」と思ったとき、いつでも探しに来てください。
+      </p>
+    </section>
+
+    <!-- 記録フォーム -->
+    <section class="record-section">
+      <div class="record-book">
+        <div class="book-spine" aria-hidden="true"></div>
+
+        <div class="record-content">
+          <div class="section-heading">
+            <span class="heading-icon" aria-hidden="true">✒</span>
+
+            <div>
+              <p class="section-label">NEW RECORD</p>
+              <h2>物の居場所を記録する</h2>
+            </div>
+          </div>
+
+          <form id="place-form">
+            <div class="form-group">
+              <label for="item-name">物の名前</label>
+
+              <input id="item-name" name="itemName" type="text" maxlength="40" placeholder="例：合鍵" required>
+            </div>
+
+            <div class="form-group">
+              <label for="place-name">置いた場所</label>
+
+              <input id="place-name" name="placeName" type="text" maxlength="80" placeholder="例：玄関の靴箱、一番上の引き出し"
+                required>
+            </div>
+
+            <div class="form-group">
+              <label for="item-note">
+                覚えておきたいこと
+                <span class="optional-label">任意</span>
+              </label>
+
+              <textarea id="item-note" name="itemNote" maxlength="160" placeholder="例：茶色い封筒の中に入れた"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="item-photo">
+                写真
+                <span class="optional-label">任意</span>
+              </label>
+
+              <label class="photo-button" for="item-photo">
+                <span aria-hidden="true">▣</span>
+                写真を選ぶ
+              </label>
+
+              <input id="item-photo" name="itemPhoto" type="file" accept="image/*">
+
+              <div id="photo-preview" class="photo-preview" hidden>
+                <img id="preview-image" src="" alt="選択した写真のプレビュー">
+
+                <button id="remove-photo-button" class="remove-photo-button" type="button">
+                  写真を外す
+                </button>
+              </div>
+            </div>
+
+            <button class="save-button" type="submit">
+              <span aria-hidden="true">＋</span>
+              図書館に記録する
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 登録済みの記録 -->
+    <section class="archive-section">
+      <div class="section-heading archive-heading">
+        <span class="heading-icon" aria-hidden="true">⌕</span>
+
+        <div>
+          <p class="section-label">ARCHIVE SEARCH</p>
+          <h2>物の居場所を探す</h2>
+        </div>
+      </div>
+
+      <div class="search-area">
+        <label class="visually-hidden" for="search-input">
+          記録を検索
+        </label>
+
+        <input id="search-input" type="search" placeholder="物の名前や場所を入力...">
+      </div>
+
+      <div id="empty-message" class="empty-message">
+        <div class="empty-icon" aria-hidden="true">⌕</div>
+        <p>まだ記録はありません。</p>
+        <span>物の居場所を登録すると、ここに蔵書カードが並びます。</span>
+      </div>
+
+      <div id="record-list" class="record-list" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- 発見確認画面 -->
+  <div id="delete-modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="delete-modal-title" hidden>
+    <div class="modal-overlay"></div>
+
+    <div class="modal-card">
+      <p class="modal-symbol" aria-hidden="true">✦</p>
+
+      <h2 id="delete-modal-title">物を見つけましたか？</h2>
+
+      <p>
+        この記録を図書館から閉じます。<br>
+        一度閉じると元には戻せません。
+      </p>
+
+      <div class="modal-actions">
+        <button id="cancel-delete-button" class="modal-button cancel-button" type="button">
+          まだ残しておく
+        </button>
+
+        <button id="confirm-delete-button" class="modal-button confirm-button" type="button">
+          見つけた！
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <p>Place Keeper — Kotodama Apps</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
